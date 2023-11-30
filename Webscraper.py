@@ -25,8 +25,11 @@ soup = BeautifulSoup(main_1, 'html.parser')
 
 links = soup.find_all("a", class_ = "css-1hqkluu") # This finds the 10 search result urls in the main.txt file. I have found the first one for reference: <a class="css-1hqkluu" href="/biz/tacos-brunos-fresno?osq=Tacos" rel="noopener" target="_blank">
 
-print(links) # This just serves to show what I have extracted from the soup.find_all function above
+# print(links) # This just serves to show what I have extracted from the soup.find_all function above
 
+for link in links:  # This extracts all the links to the taco places in the first page search results from the main url
+    taco_place = 'https://www.yelp.com' + link['href']
+    print(taco_place)
 
 
         

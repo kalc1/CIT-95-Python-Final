@@ -23,15 +23,22 @@ except FileNotFoundError:
 
 # print(main_1)     # This serves only to verify my main_1 functions as intended.
 
-soup = BeautifulSoup(main_1, 'html.parser')
+main_soup = BeautifulSoup(main_1, 'html.parser')
 
-links = soup.find_all("a", class_ = "css-1hqkluu") # This finds the 10 search result urls in the main.txt file. I have found the first one for reference: <a class="css-1hqkluu" href="/biz/tacos-brunos-fresno?osq=Tacos" rel="noopener" target="_blank">
+# This finds the 10 search result urls in the main.txt file. I have found the first one for reference: <a class="css-1hqkluu" href="/biz/tacos-brunos-fresno?osq=Tacos" rel="noopener" target="_blank">
+links = main_soup.find_all("a", class_ = "css-1hqkluu") 
 
-# print(links) # This just serves to show what I have extracted from the soup.find_all function above
+# These 3 lines of code just serve to show what I have extracted from the soup.find_all function above
+# print(links) 
+# for link in links:
+#     print(link['href'])
 
-with open('c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\yelp_html\\links.txt', 'w', encoding='utf-8') as links_file:
-    for link in links:  # This extracts all the links to the taco places in the first page search results from the main url
-        taco_place = 'https://www.yelp.com' + link['href']
-        links_file.write(f'{taco_place}\n')
+# This creates a new file named links.txt which will be used to store a list of links extracted from main.txt and to provide a way to go directly to the site for ease of convenience. 
+# As above, this is only run once to retrieve the links from main.txt
+
+# with open('c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\yelp_html\\links.txt', 'w', encoding='utf-8') as links_file:
+#     for link in links:  # This extracts all the links to the taco places in the first page search results from the main url
+#         taco_place = 'https://www.yelp.com' + link['href']
+#         links_file.write(f'{taco_place}\n')
         
 

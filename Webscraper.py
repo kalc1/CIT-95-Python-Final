@@ -7,8 +7,7 @@ os.makedirs(output_directory, exist_ok=True) # Since I have to run this a few ti
 
 # The following retrieves HTML data from the first page of yelp search results for "Tacos"
 # This section is run only once to retrieve the HTML and saved to a .txt file and 
-# commented out to prevent making unnecessary requests to the website. 
-
+# It is commented out to prevent making unnecessary requests to the website:
 # url = "https://www.yelp.com/search?find_desc=Tacos&find_loc=Fresno%2C%20CA&sortby=rating&start=0"
 # result = requests.get(url)
 # soup = BeautifulSoup(result.text, 'html.parser')
@@ -36,12 +35,13 @@ links = main_soup.find_all("a", class_ = "css-1hqkluu")
 
 # This creates a new file named links.txt which will be used to store a list of links extracted from main.txt and to provide a way to go directly to the site for ease of convenience. 
 # As above, this is only run once to retrieve the links from main.txt and uses exception handling.
-try:    
-    with open('c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\yelp_html\\links.txt', 'w', encoding='utf-8') as links_file:
-        for link in links:  # This extracts all the links to the taco places in the first page search results from the main url
-            taco_place = 'https://www.yelp.com' + link['href']
-            links_file.write(f'{taco_place}\n')
-except Exception as e:  # The use of 'Exception' is used to catch any errors during the process
-    print("An error occurred while writing links to: c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\yelp_html\\links.txt")
+# It is normally commented out for redundancy:
+# try:    
+#     with open('c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\yelp_html\\links.txt', 'w', encoding='utf-8') as links_file:
+#         for link in links:  # This extracts all the links to the taco places in the first page search results from the main url
+#             taco_place = 'https://www.yelp.com' + link['href']
+#             links_file.write(f'{taco_place}\n')
+# except Exception as e:  # The use of 'Exception' is used to catch any errors during the process
+#     print("An error occurred while writing links to: c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\yelp_html\\links.txt")
         
 

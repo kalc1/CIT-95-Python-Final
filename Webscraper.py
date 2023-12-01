@@ -44,5 +44,7 @@ try:
 except Exception as e:  # The use of 'Exception' is used to catch any errors during the process
     print("An error occurred while writing links to: c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\yelp_html\\links.txt")
         
-
+# These .close() functions close out the .txt files used in the program.         
+links_file.close()
+m1.close()
 

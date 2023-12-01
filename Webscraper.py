@@ -33,12 +33,15 @@ links = main_soup.find_all("a", class_ = "css-1hqkluu")
 # for link in links:
 #     print(link['href'])
 
-# This creates a new file named links.txt which will be used to store a list of links extracted from main.txt and to provide a way to go directly to the site for ease of convenience. 
-# As above, this is only run once to retrieve the links from main.txt
 
-# with open('c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\yelp_html\\links.txt', 'w', encoding='utf-8') as links_file:
-#     for link in links:  # This extracts all the links to the taco places in the first page search results from the main url
-#         taco_place = 'https://www.yelp.com' + link['href']
-#         links_file.write(f'{taco_place}\n')
+# This creates a new file named links.txt which will be used to store a list of links extracted from main.txt and to provide a way to go directly to the site for ease of convenience. 
+# As above, this is only run once to retrieve the links from main.txt and uses exception handling.
+try:    
+    with open('c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\yelp_html\\links.txt', 'w', encoding='utf-8') as links_file:
+        for link in links:  # This extracts all the links to the taco places in the first page search results from the main url
+            taco_place = 'https://www.yelp.com' + link['href']
+            links_file.write(f'{taco_place}\n')
+except Exception as e:  # The use of 'Exception' is used to catch any errors during the process
+    print("An error occurred while writing links to: c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\yelp_html\\links.txt")
         
 

@@ -3,7 +3,7 @@ import requests
 import os
 
 output_directory = 'c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\yelp_html'
-os.makedirs(output_directory, exist_ok=True) # Since I have to run this a few times for testing an OSError will be raised if its value is False, so this is set to True
+os.makedirs(output_directory, exist_ok=True) # Since I have to run this a few times for testing, an OSError will be raised if its value is False, so this is set to True
 
 # The following retrieves HTML data from the first page of yelp search results for "Tacos"
 # This section is run only once to retrieve the HTML and saved to a .txt file and 
@@ -43,6 +43,8 @@ try:
             links_file.write(f'{taco_place}\n')
 except Exception as e:  # The use of 'Exception' is used to catch any errors during the process
     print("An error occurred while writing links to: c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\yelp_html\\links.txt")
+        
+taco_html_list = []
         
 # These .close() functions close out the .txt files used in the program.         
 links_file.close()

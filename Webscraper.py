@@ -34,8 +34,7 @@ links = main_soup.find_all("a", class_ = "css-1hqkluu")
 
 
 # This creates a new file named links.txt which will be used to store a list of links extracted from main.txt and to provide a way to go directly to the site for ease of convenience. 
-# As above, this is only run once to retrieve the links from main.txt and uses exception handling.
-# It is normally commented out for redundancy:
+# As above, this also uses exception handling:
 try:    
     with open('c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\yelp_html\\links.txt', 'w', encoding='utf-8') as links_file:
         for link in links:  # This extracts all the links to the taco places in the first page search results from the main url
@@ -43,10 +42,29 @@ try:
             links_file.write(f'{taco_place}\n')
 except Exception as e:  # The use of 'Exception' is used to catch any errors during the process
     print("An error occurred while writing links to: c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\yelp_html\\links.txt")
-        
-taco_html_list = []
+
+# This creates a list of the 10 links in links.txt and uses exception handling
+try:
+    with open('c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\yelp_html\\links.txt', 'r', encoding='utf-8') as links_txt:
+        read_links = links_txt.readlines() 
+except Exception as e:
+    print("An error occurred while reading links from: c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\yelp_html\\links.txt")
+
+# The list from read_links above contains an escape character: '/n'
+# The following block of code removes these and creates a new list:
+links_list = []
+for link in read_links:
+    append_link = link.strip()
+    links_list.append(append_link)
+print(links_list)    
+
+taco_html_list = [] # An empty list which is used to store the html scraped from each link in links.txt using iteration.
+
+
+
+
         
 # These .close() functions close out the .txt files used in the program.         
-links_file.close()
+links_file.close() 
 m1.close()
 

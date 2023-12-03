@@ -68,8 +68,21 @@ for link in read_links:
 #     with open(f'c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\yelp_html\\taco_link_{i}.txt', 'w', encoding='utf-8') as taco_htmls:
 #         taco_htmls.write(str(link_soup.prettify()))
 
-taco_html_list = [] 
+# The following is just a template for iterating through each .txt file that contains the html data and parsing through each one
+for i in range(10):
+    taco_html = f'c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\yelp_html\\taco_link_{i}.txt'
 
+    try:
+        with open(taco_html, 'r', encoding='utf-8') as html:
+            taco_contents = html.read()
+            
+        # Insert HTML parsing here
+            
+    except Exception as e:
+        print(f"An error occurred while reading html from {taco_html}")
+        
+
+    
 # These .close() functions close out the .txt files used in the program.         
 links_file.close() 
 links_txt.close()

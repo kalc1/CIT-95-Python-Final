@@ -56,15 +56,22 @@ links_list = []
 for link in read_links:
     append_link = link.strip()
     links_list.append(append_link)
-print(links_list)    
+# print(links_list)  # This just used to verify it works as intended. 
 
-taco_html_list = [] # An empty list which is used to store the html scraped from each link in links.txt using iteration.
+# The following retrieves HTML data from each link in links_list 
+# enumerate is used to iterate through each link in links_list and give each .txt file a unique name based on its index number
+# This section is run only once to retrieve all the HTML and saved to 10 different .txt files and 
+# It is commented out to prevent making unnecessary requests to the website:
+# for i, link in enumerate(links_list):
+#     link_result = requests.get(link)
+#     link_soup = BeautifulSoup(link_result.text, 'html.parser')
+#     with open(f'c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\yelp_html\\taco_link_{i}.txt', 'w', encoding='utf-8') as taco_htmls:
+#         taco_htmls.write(str(link_soup.prettify()))
 
+taco_html_list = [] 
 
-
-
-        
 # These .close() functions close out the .txt files used in the program.         
 links_file.close() 
+links_txt.close()
 m1.close()
 

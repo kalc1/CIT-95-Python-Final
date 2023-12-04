@@ -3,7 +3,7 @@ import requests
 import os
 
 output_directory = 'c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\yelp_html'
-os.makedirs(output_directory, exist_ok=True) # Since I have to run this a few times for testing, an OSError will be raised if its value is False, so this is set to True
+os.makedirs(output_directory, exist_ok=True) # Since I have to run this a few times for testing, an OSError will be raised if its value is False, so this is set to True. This is because the directory will already exist after the initial running of this code. 
 
 # The following retrieves HTML data from the first page of yelp search results for "Tacos"
 # This section is run only once to retrieve the HTML and saved to a .txt file and 
@@ -31,7 +31,6 @@ links = main_soup.find_all("a", class_ = "css-1hqkluu")
 # print(links) 
 # for link in links:
 #     print(link['href'])
-
 
 # This creates a new file named links.txt which will be used to store a list of links extracted from main.txt and to provide a way to go directly to the site for ease of convenience. 
 # As above, this also uses exception handling:
@@ -81,8 +80,8 @@ for i in range(10):
     except Exception as e:
         print(f"An error occurred while reading html from {taco_html}")
         
+        
 
-    
 # These .close() functions close out the .txt files used in the program.         
 links_file.close() 
 links_txt.close()

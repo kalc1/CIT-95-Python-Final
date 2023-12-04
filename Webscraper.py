@@ -83,19 +83,21 @@ for i in range(10): # This iterates through taco_link_0.txt through taco_link_9.
         restaurant_name = taco_soup.find('h1', class_="css-1se8maq").get_text(strip=True) 
         
         # This finds the restaurant rating and how many reviews it has. HTML snippet for reference: <span class=" css-1fdy0l5" data-font-weight="semibold">5.0 </span>
-        restaurant_rating = taco_soup.find('span', class=" css-1fdy0l5").get_text(strip=True)
+        restaurant_rating = taco_soup.find('span', class_="css-1fdy0l5").get_text(strip=True)
         
         # This finds the number of reviews the restaurant has. HTML snippet: <a href="#reviews" class="css-19v1rkv">(9 reviews)</a>
-        restaurant_reviews = taco_soup.find()
+        restaurant_review_count = taco_soup.find('a', class_="css-19v1rkv").get_text(strip=True).strip('(reviews)')
         
         # <a href="/biz_redir?url=https%3A%2F%2Ffresnomexicanfood.com&amp;cachebuster=1701716554&amp;website_link_type=website&amp;src_bizid=-Ufu3Ha7V9Z6Z4YBx1yTfg&amp;s=91159ae84e4fd445df8daada241e54af990b8bf2bdc168212f103dcb02cdd4ad" class="css-1idmmu3" target="_blank" rel="noopener" role="link">fresnomexicanfood.com</a>
-        restaurant_website = taco_soup.find()
+        # TODO fix this from scraping address to website
+        restaurant_website = taco_soup.find('a', class_="css-1idmmu3").get_text(strip=True) 
         
         # <p class=" css-1p9ibgf" data-font-weight="semibold">(559) 618-1100</p>
         restaurant_phone = taco_soup.find()
         
         # <p class=" css-qyp8bo" data-font-weight="semibold">1329 S Hazelwood Blvd Fresno, CA 93702</p>
-        restaurant_location = taco_soup.find()
+        # TODO handle outputs without real address such as {i} = 0 and 9
+        restaurant_location = taco_soup.find('p', class_="css-qyp8bo").get_text(strip=True)
         
         # <p class="day-of-the-week__09f24__JJea_ css-1p9ibgf" data-font-weight="semibold">Fri</p>
         # <p class="no-wrap__09f24__c3plq css-1p9ibgf" data-font-weight="semibold">7:00 AM - 5:00 PM</p>
@@ -108,7 +110,10 @@ for i in range(10): # This iterates through taco_link_0.txt through taco_link_9.
         
         #These are print statements used to verify my scraping works:
         # print(restaurant_name)
-        print(restaurant_rating)
+        # print(restaurant_rating)
+        # print(restaurant_review_count)
+        #print(restaurant_website)
+        print(restaurant_location)
             
     except Exception as e:
         print(f"An error occurred while reading html from {taco_html}")

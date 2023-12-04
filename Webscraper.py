@@ -38,7 +38,7 @@ try:
     with open('c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\yelp_html\\links.txt', 'w', encoding='utf-8') as links_file:
         for link in links:  # This extracts all the links to the taco places in the first page search results from the main url
             taco_place = 'https://www.yelp.com' + link['href']
-            links_file.write(f'{taco_place}\n')
+            links_file.write(f'{taco_place}\n') # An escape character is used here to make the file more readable. I later end up removing '\n' when converting this to a list. 
 except Exception as e:  # The use of 'Exception' is used to catch any errors during the process
     print("An error occurred while writing links to: c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\yelp_html\\links.txt")
 
@@ -68,14 +68,23 @@ for link in read_links:
 #         taco_htmls.write(str(link_soup.prettify()))
 
 # The following is just a template for iterating through each .txt file that contains the html data and parsing through each one
-for i in range(10):
+for i in range(10): # This iterates through taco_link_0.txt through taco_link_9.txt
     taco_html = f'c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\yelp_html\\taco_link_{i}.txt'
 
     try:
         with open(taco_html, 'r', encoding='utf-8') as html:
             taco_contents = html.read()
             
-        # Insert HTML parsing here
+        # HTML parsing using Beautifulsoup:
+        taco_soup = BeautifulSoup(taco_contents, 'html.parser')
+        
+        # This finds the name of the restuarant. I have found the first one for reference: <h1 class="css-1se8maq">Tacos Brunos</h1>
+        # The HTML structure for each taco_link_{i} should be the same so this scrapes the restaurant name from each of the files.
+        restaurant_name = taco_soup.find('h1', class_='css-1se8maq').get_text().strip() # This retrieves the text within <h1 class="css-1se8maq">"RESTAURANT NAME"</h1> and strips the blank space
+        restaurant_rating = ...
+        
+        #These are print statements used to verify my scraping works:
+        #print(restaurant_name)
             
     except Exception as e:
         print(f"An error occurred while reading html from {taco_html}")
@@ -84,6 +93,7 @@ for i in range(10):
 
 # These .close() functions close out the .txt files used in the program.         
 links_file.close() 
+html.close()
 links_txt.close()
 m1.close()
 

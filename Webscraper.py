@@ -80,18 +80,35 @@ for i in range(10): # This iterates through taco_link_0.txt through taco_link_9.
         
         # This finds the name of the restuarant. I have found the first one for reference: <h1 class="css-1se8maq">Tacos Brunos</h1>
         # The HTML structure for each taco_link_{i} should be the same so this scrapes the restaurant name from each of the files while stripping the white space.
-        restaurant_name = taco_soup.find('h1', class_='css-1se8maq').get_text(strip=True) 
+        restaurant_name = taco_soup.find('h1', class_="css-1se8maq").get_text(strip=True) 
         
         # This finds the restaurant rating and how many reviews it has. HTML snippet for reference: <span class=" css-1fdy0l5" data-font-weight="semibold">5.0 </span>
-        restaurant_rating = taco_soup.find()
+        restaurant_rating = taco_soup.find('span', class=" css-1fdy0l5").get_text(strip=True)
         
         # This finds the number of reviews the restaurant has. HTML snippet: <a href="#reviews" class="css-19v1rkv">(9 reviews)</a>
         restaurant_reviews = taco_soup.find()
         
+        # <a href="/biz_redir?url=https%3A%2F%2Ffresnomexicanfood.com&amp;cachebuster=1701716554&amp;website_link_type=website&amp;src_bizid=-Ufu3Ha7V9Z6Z4YBx1yTfg&amp;s=91159ae84e4fd445df8daada241e54af990b8bf2bdc168212f103dcb02cdd4ad" class="css-1idmmu3" target="_blank" rel="noopener" role="link">fresnomexicanfood.com</a>
+        restaurant_website = taco_soup.find()
         
+        # <p class=" css-1p9ibgf" data-font-weight="semibold">(559) 618-1100</p>
+        restaurant_phone = taco_soup.find()
+        
+        # <p class=" css-qyp8bo" data-font-weight="semibold">1329 S Hazelwood Blvd Fresno, CA 93702</p>
+        restaurant_location = taco_soup.find()
+        
+        # <p class="day-of-the-week__09f24__JJea_ css-1p9ibgf" data-font-weight="semibold">Fri</p>
+        # <p class="no-wrap__09f24__c3plq css-1p9ibgf" data-font-weight="semibold">7:00 AM - 5:00 PM</p>
+        restaurant_hours = taco_soup.find()
+        
+        # <p class=" css-11k8aw1">Restaurante familiar especializado en comida mexicana de calidad. Tenemos 10 años de experiencia ofreciendo no solo una comida sabrosa, sino un servicio que lo hace sentir especial. La pasión por lo que hacemos marca una diferencia en nuestros servicios. Nuestras recetas conservan la tradición de nuestros ancestros, por lo que la autenticidad de los sabores mexicanos está impresa en cada plato.</p>
+        # <div class=" css-1qn0b6x"><div class="section-heading__09f24__F0gJv css-1qn0b6x"><h5 class="css-agyoef">Specialties</h5></div><p class=" css-11k8aw1">Restaurante familiar especializado en comida mexicana de calidad. Tenemos 10 años de experiencia ofreciendo no solo una comida sabrosa, sino un servicio que lo hace sentir especial. La pasión por lo que hacemos marca una diferencia en nuestros servicios. Nuestras recetas conservan la tradición de nuestros ancestros, por lo que la autenticidad de los sabores mexicanos está impresa en cada plato.</p></div>
+        # <div class=" css-1qn0b6x"><div class="section-heading__09f24__F0gJv css-1qn0b6x"><h5 class="css-agyoef">Meet the Business Owner</h5></div><div class="business-owner-passport__09f24__QTpe6 css-1qn0b6x"><div class=" css-1qn0b6x" aria-labelledby="businessOwner-:r1s:" role="region"><p class=" css-na3oda" id="businessOwner-:r1s:">Business owner information</p><div class="arrange__09f24__LDfbs gutter-1__09f24__yAbCL vertical-align-middle__09f24__zU9sE css-1qn0b6x"><div class="arrange-unit__09f24__rqHTg css-1qn0b6x"><div class="avatar__09f24__bUjfQ css-1qn0b6x"><div class="css-eqfjza"><img class=" css-xlzvdl" src="https://s3-media0.fl.yelpcdn.com/assets/srv0/yelp_styleguide/bf5ff8a79310/assets/img/default_avatars/user_medium_square.png" srcset="" alt="Photo of Allen J." height="40" width="40" loading="lazy" draggable="true"></div></div></div><div class="arrange-unit__09f24__rqHTg arrange-unit-fill__09f24__CUubG css-1qn0b6x"><p class=" css-ux5mu6" data-font-weight="bold">Allen J.</p><div class=" css-1qn0b6x"><p class=" css-chan6m" aria-hidden="true">Business Owner</p></div></div></div></div></div><p class=" css-11k8aw1"><span class=" raw__09f24__T4Ezm">Allen &amp; Anna we were inspired to bring great authentic Mexican flavors to our city.</span></p></div>
+        restaurant_about = taco_soup.find()
         
         #These are print statements used to verify my scraping works:
         # print(restaurant_name)
+        print(restaurant_rating)
             
     except Exception as e:
         print(f"An error occurred while reading html from {taco_html}")

@@ -75,16 +75,23 @@ for i in range(10): # This iterates through taco_link_0.txt through taco_link_9.
         with open(taco_html, 'r', encoding='utf-8') as html:
             taco_contents = html.read()
             
-        # HTML parsing using Beautifulsoup:
+        ### HTML parsing using Beautifulsoup ###
         taco_soup = BeautifulSoup(taco_contents, 'html.parser')
         
         # This finds the name of the restuarant. I have found the first one for reference: <h1 class="css-1se8maq">Tacos Brunos</h1>
         # The HTML structure for each taco_link_{i} should be the same so this scrapes the restaurant name from each of the files while stripping the white space.
         restaurant_name = taco_soup.find('h1', class_='css-1se8maq').get_text(strip=True) 
-        restaurant_rating = ...
+        
+        # This finds the restaurant rating and how many reviews it has. HTML snippet for reference: <span class=" css-1fdy0l5" data-font-weight="semibold">5.0 </span>
+        restaurant_rating = taco_soup.find()
+        
+        # This finds the number of reviews the restaurant has. HTML snippet: <a href="#reviews" class="css-19v1rkv">(9 reviews)</a>
+        restaurant_reviews = taco_soup.find()
+        
+        
         
         #These are print statements used to verify my scraping works:
-        print(restaurant_name)
+        # print(restaurant_name)
             
     except Exception as e:
         print(f"An error occurred while reading html from {taco_html}")

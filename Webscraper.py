@@ -81,32 +81,45 @@ for i in range(10): # This iterates through taco_link_0.txt through taco_link_9.
         # This finds the name of the restuarant. I have found the first one for reference: <h1 class="css-1se8maq">Tacos Brunos</h1>
         # The HTML structure for each taco_link_{i} should be the same so this scrapes the restaurant name from each of the files while stripping the white space.
         restaurant_name_element = taco_soup.find('h1', class_="css-1se8maq")
-        restaurant_name = restaurant_name_element.get_text(strip=True) 
+        if restaurant_name_element is not None:
+            restaurant_name = restaurant_name_element.get_text(strip=True)
+        else:
+            restaurant_name = 'no data'
         
         # This finds the restaurant rating and how many reviews it has. HTML snippet for reference: <span class=" css-1fdy0l5" data-font-weight="semibold">5.0 </span>
         restaurant_rating_element = taco_soup.find('span', class_="css-1fdy0l5")
-        restaurant_rating = restaurant_rating_element.get_text(strip=True)
-        
+        if restaurant_rating_element is not None:
+            restaurant_rating = restaurant_rating_element.get_text(strip=True)
+        else:
+            restaurant_rating = 'no data'        
         # This finds the number of reviews the restaurant has. HTML snippet: <a href="#reviews" class="css-19v1rkv">(9 reviews)</a>
         restaurant_review_count_element = taco_soup.find('a', class_="css-19v1rkv")
-        restaurant_review = restaurant_review_count_element.get_text(strip=True).strip('(reviews)')
-        
-        # <a href="/biz_redir?url=https%3A%2F%2Ffresnomexicanfood.com&amp;cachebuster=1701716554&amp;website_link_type=website&amp;src_bizid=-Ufu3Ha7V9Z6Z4YBx1yTfg&amp;s=91159ae84e4fd445df8daada241e54af990b8bf2bdc168212f103dcb02cdd4ad" class="css-1idmmu3" target="_blank" rel="noopener" role="link">fresnomexicanfood.com</a>
-        # TODO fix this from scraping address to website
-        restaurant_website_element = taco_soup.find('a', class_="css-1idmmu3")
-        restaurant_website = restaurant_website_element.get_text(strip=True) 
-        
+        if restaurant_review_count_element is not None:
+            restaurant_review_count = restaurant_review_count_element.get_text(strip=True).strip('() reviews')
+        else:
+            restaurant_review_count = 'no data'        
+        # <a href="/biz_redir?url=https%3A%2F%2Ffresnomexicanfood.com&amp;cachebuster=1701716554&amp;website_link_type=website&amp;src_bizid=-Ufu3Ha7V9Z6Z4YBx1yTfg&amp;s=91159ae84e4fd445df8daada241e54af990b8bf2bdc168212f103dcb02cdd4ad" 
+        # class="css-1idmmu3" target="_blank" rel="noopener" role="link">fresnomexicanfood.com</a>
+        restaurant_website_element = taco_soup.find('a', class_="css-1idmmu3", target="_blank")
+        if restaurant_website_element is not None:
+            restaurant_website = restaurant_website_element.get_text(strip=True)
+        else:
+            restaurant_website = 'no data'
+                
         # <p class=" css-1p9ibgf" data-font-weight="semibold">(559) 618-1100</p>
         restaurant_phone_element = taco_soup.find()
-        restaurant_phone = restaurant_phone_element.get_text(strip=True)
-        
+        if restaurant_phone_element is not None:
+            restaurant_phone = restaurant_phone_element.get_text(strip=True)
+        else:
+            restaurant_phone = 'no data'
+                
         # <p class=" css-qyp8bo" data-font-weight="semibold">1329 S Hazelwood Blvd Fresno, CA 93702</p>
         # TODO handle outputs without real address such as {i} = 0 and 9
         restaurant_location_element = taco_soup.find('p', class_="css-qyp8bo")
         if restaurant_location_element is not None:
             restaurant_location = restaurant_location_element.get_text(strip=True)
         else:
-            restaurant_location = 'null'
+            restaurant_location = 'no data'
         
         # <p class="day-of-the-week__09f24__JJea_ css-1p9ibgf" data-font-weight="semibold">Fri</p>
         # <p class="no-wrap__09f24__c3plq css-1p9ibgf" data-font-weight="semibold">7:00 AM - 5:00 PM</p>
@@ -121,8 +134,8 @@ for i in range(10): # This iterates through taco_link_0.txt through taco_link_9.
         # print(restaurant_name)
         # print(restaurant_rating)
         # print(restaurant_review_count)
-        #print(restaurant_website)
-        print(restaurant_location)
+        print(restaurant_website)
+        # print(restaurant_location)
             
     except Exception as e:
         print(f"An error occurred while reading html from {taco_html}")

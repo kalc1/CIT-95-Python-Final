@@ -131,11 +131,11 @@ for i in range(10): # This iterates through taco_link_0.txt through taco_link_9.
         restaurant_about_element = taco_soup.find()
         
         #These are print statements used to verify my scraping works:
-        # print(restaurant_name)
-        # print(restaurant_rating)
-        # print(restaurant_review_count)
-        print(restaurant_website)
-        # print(restaurant_location)
+        print(f'restaurant_name: {restaurant_name}')
+        print(f'restaurant_rating: {restaurant_rating}')
+        print(f'restaurant_review_count: {restaurant_review_count}')
+        print(f'restaurant_website: {restaurant_website}')
+        print(f'restaurant_location: {restaurant_location}')
             
     except Exception as e:
         print(f"An error occurred while reading html from {taco_html}")

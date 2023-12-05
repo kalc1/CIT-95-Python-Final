@@ -105,11 +105,19 @@ for i in range(10): # This iterates through taco_link_0.txt through taco_link_9.
             restaurant_website = restaurant_website_element.get_text(strip=True)
         else:
             restaurant_website = 'no data'
-                
-        # <p class=" css-1p9ibgf" data-font-weight="semibold">(559) 618-1100</p>
-        restaurant_phone_element = taco_soup.find()
+         
+        # Retrieving        
+        #<div class="css-djo2w"><div class="arrange__09f24__LDfbs gutter-2__09f24__CCmUo vertical-align-middle__09f24__zU9sE css-1qn0b6x">
+        # <div class="arrange-unit__09f24__rqHTg arrange-unit-fill__09f24__CUubG css-1qn0b6x">
+        # <p class=" css-na3oda">Phone number</p><p class=" css-1p9ibgf" data-font-weight="semibold">(559) 449-3331</p></div>
+        # <div class="arrange-unit__09f24__rqHTg css-1qn0b6x"><span alt="" aria-hidden="true" role="img" class="icon--24-phone-v2 icon__09f24__zr17A css-147xtl9"><svg width="24" height="24" class="icon_svg"><path d="M13.59 23.07A7 7 0 0 1 8.64 21L3 15.36a7 7 0 0 1 0-9.9l1.39-1.41a1 1 0 0 1 1.42 0l5 5a1 1 0 0 1 0 1.41 2.001 2.001 0 0 0 2.83 2.83 1 1 0 0 1 1.41 0l4.95 5a1 1 0 0 1 0 1.42L18.54 21a7 7 0 0 1-4.95 2.07ZM5.1 6.17l-.71.71a5 5 0 0 0 0 7.07l5.66 5.66a5 5 0 0 0 7.07 0l.71-.71-3.63-3.63a4 4 0 0 1-4.86-.61 4 4 0 0 1-.61-4.86L5.1 6.17Zm12.78 5.95a1 1 0 0 1-1-1 4 4 0 0 0-4-4 1 1 0 0 1 0-2 6 6 0 0 1 6 6 1 1 0 0 1-1 1Zm4.19 0a1 1 0 0 1-1-1 8.19 8.19 0 0 0-8.19-8.19 1 1 0 0 1 0-2c5.625.006 10.184 4.565 10.19 10.19a1 1 0 0 1-1 1Z"></path></svg></span></div></div></div>
+        restaurant_phone_element = taco_soup.find('div', class_="css-djo2w").find('p', class_="css-1p9ibgf") 
         if restaurant_phone_element is not None:
-            restaurant_phone = restaurant_phone_element.get_text(strip=True)
+            website_link = restaurant_phone_element.find('a', class_="css-1idmmu3")
+            if website_link is not None:
+                restaurant_phone = 'no data'  # Website, not a phone number
+            else:
+                restaurant_phone = restaurant_phone_element.get_text(strip=True)
         else:
             restaurant_phone = 'no data'
                 
@@ -131,11 +139,12 @@ for i in range(10): # This iterates through taco_link_0.txt through taco_link_9.
         restaurant_about_element = taco_soup.find()
         
         #These are print statements used to verify my scraping works:
-        print(f'restaurant_name: {restaurant_name}')
-        print(f'restaurant_rating: {restaurant_rating}')
-        print(f'restaurant_review_count: {restaurant_review_count}')
-        print(f'restaurant_website: {restaurant_website}')
-        print(f'restaurant_location: {restaurant_location}')
+        # print(f'restaurant_name: {restaurant_name}')
+        # print(f'restaurant_rating: {restaurant_rating}')
+        # print(f'restaurant_review_count: {restaurant_review_count}')
+        # print(f'restaurant_website: {restaurant_website}')
+        print(f'restaurant_phone: {restaurant_phone}')
+        # print(f'restaurant_location: {restaurant_location}')
             
     except Exception as e:
         print(f"An error occurred while reading html from {taco_html}")

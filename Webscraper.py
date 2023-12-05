@@ -140,7 +140,8 @@ for i in range(10): # This iterates through taco_link_0.txt through taco_link_9.
         
         for block in tr_blocks: # Iterates through each block in tr_blocks to extract the string which contains the business hour information
             restaurant_hours.append(block.get_text(strip=True))
-            
+        
+        # This removes empty strings and adds them to a new list. The HTML block contained text indicating if the business was closed or open now at the time of the original webscrape.  
         for time in restaurant_hours: # I remembered a question in the discord chat about removing empty elements in a list
             if (time != ''): 
                 if 'closed now' in time.lower(): # Removes 'closed now' from string
@@ -151,14 +152,15 @@ for i in range(10): # This iterates through taco_link_0.txt through taco_link_9.
                     time = time[:-10]
                 restaurant_times.append((time[:3] + ' ' + time[3:]).strip()) # For readability, a space is added to seperate the day from the times using concatenation and slicing.
         
-        #These are print statements used to verify my scraping works:
-        # print(f'restaurant_name: {restaurant_name}')
-        # print(f'restaurant_rating: {restaurant_rating}')
-        # print(f'restaurant_review_count: {restaurant_review_count}')
-        # print(f'restaurant_website: {restaurant_website}')
-        # print(f'restaurant_phone: {restaurant_phone}')
-        # print(f'restaurant_location: {restaurant_location}')
-        # print(f'restaurant_times: {restaurant_times}')
+        #These are print statements used to verify my scraping works:     
+        print(f'restaurant name: {restaurant_name}')      
+        print(f'restaurant rating: {restaurant_rating}')  
+        print(f'restaurant review count: {restaurant_review_count}')     
+        print(f'restaurant website: {restaurant_website}')     
+        print(f'restaurant phone: {restaurant_phone}')     
+        print(f'restaurant location: {restaurant_location}')        
+        print(f'restaurant times: {restaurant_times}')
+        print('')
             
     except Exception as e:
         print(f"An error occurred while reading html from {taco_html}")

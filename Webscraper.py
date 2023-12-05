@@ -2,8 +2,10 @@ from bs4 import BeautifulSoup
 import requests
 import os
 
-output_directory = 'c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\yelp_html'
-os.makedirs(output_directory, exist_ok=True) # Since I have to run this a few times for testing, an OSError will be raised if its value is False, so this is set to True. This is because the directory will already exist after the initial running of this code. 
+# First, os.makedirs() is used to create 2 folders/directories. One will house all the raw html data converted to .txt, and the other will contain the outputs. 
+# Since I have to run this a few times for testing, an OSError will be raised if its value is False, so this is set to True. This is because the directory will already exist after the initial running of this code.
+os.makedirs('c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\yelp_html', exist_ok=True) 
+os.makedirs('c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\output_files', exist_ok=True) 
 
 # The following retrieves HTML data from the first page of yelp search results for "Tacos"
 # This section is run only once to retrieve the HTML and saved to a .txt file and 
@@ -22,6 +24,7 @@ except FileNotFoundError:
 
 # print(main_1)     # This serves only to verify my main_1 functions as intended.
 
+# Beautifulsoup is used to parse the html in main_1
 main_soup = BeautifulSoup(main_1, 'html.parser')
 
 # This finds the 10 search result urls in the main.txt file. I have found the first one for reference: <a class="css-1hqkluu" href="/biz/tacos-brunos-fresno?osq=Tacos" rel="noopener" target="_blank">
@@ -67,7 +70,7 @@ for link in read_links:
 #     with open(f'c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\yelp_html\\taco_link_{i}.txt', 'w', encoding='utf-8') as taco_htmls:
 #         taco_htmls.write(str(link_soup.prettify()))
 
-with open('c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\output.txt', 'w', encoding='utf-8') as output: 
+with open('c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\output_files\\output.txt', 'w', encoding='utf-8') as output: 
     output.write(f'The following data was scraped from the top 10 search results for "tacos" from yelp.\n\n')
     for i in range(10): # This iterates through taco_link_0.txt through taco_link_9.txt
         taco_html = f'c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\yelp_html\\taco_link_{i}.txt'
@@ -171,6 +174,8 @@ with open('c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\outpu
             output.write(f'Restaurant Address: {restaurant_location}\n')
             output.write(f'Restaurant Business Hours: {restaurant_times}\n')
             output.write('\n')
+            
+            html.close() # As each file iterates, it is closed before opening the next one. 
                 
         except Exception as e:
             print(f"An error occurred while reading html from {taco_html}")
@@ -180,7 +185,6 @@ with open('c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\outpu
 # These .close() functions close out the .txt files used in the program.
 output.close()      
 links_file.close() 
-html.close()
 links_txt.close()
 m1.close()
 

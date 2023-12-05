@@ -205,7 +205,6 @@ with open('c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\outpu
 # This exports 'export_data' into a json file.
 with open('c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\output_files\\output.json', 'w') as json_output:       
     json.dump(export_data, json_output, indent=2) 
-
     
 # This exports 'export_data' into a .csv file which can then be exported to excel, a jupiter notebook, sql, etc. 
 with open('c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\output_files\\output.csv', 'w', newline="", encoding="utf-8") as csv_output:
@@ -215,6 +214,7 @@ with open('c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\outpu
     csv_writer.writerows(export_data)
 
 # These .close() functions close out the .txt files used in the program.
+csv_output.close()
 json_output.close()
 output.close()      
 links_file.close() 

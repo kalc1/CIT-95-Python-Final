@@ -138,31 +138,19 @@ for i in range(10): # This iterates through taco_link_0.txt through taco_link_9.
         restaurant_hours = []
         restaurant_times = []
         
-        for block in tr_blocks: # finds both the day and the hours since they are both in this massive html block
-            # day_element = block.find('p', class_="day-of-the-week__09f24__JJea_")
-            # tr_day = day_element.get_text(strip=True)
-            
-            # hours_element = block.find('p', class_="no-wrap__09f24__c3plq")
-            # tr_hours = hours_element.get_text(strip=True)
-
+        for block in tr_blocks: # Iterates through each block in tr_blocks to extract the string which contains the business hour information
             restaurant_hours.append(block.get_text(strip=True))
             
-        for i in restaurant_hours:
+        for i in restaurant_hours: # I remembered a question in the discord chat about removing empty elements in a list
             if (i != ''):
-                restaurant_times.append(i)
-        print(restaurant_times)
-        
-        # restaurant_days_element = taco_soup.find_all('p', class_="day-of-the-week__09f24__JJea_ css-1p9ibgf")
-        # if restaurant_days_element is not None:   
-        #     restaurant_days = restaurant_days_element.get_text(strip=True)
-        # else:
-        #     restaurant_days = 'no data'
-        # print(restaurant_days_element[0])
-        
-        # <p class=" css-11k8aw1">Restaurante familiar especializado en comida mexicana de calidad. Tenemos 10 años de experiencia ofreciendo no solo una comida sabrosa, sino un servicio que lo hace sentir especial. La pasión por lo que hacemos marca una diferencia en nuestros servicios. Nuestras recetas conservan la tradición de nuestros ancestros, por lo que la autenticidad de los sabores mexicanos está impresa en cada plato.</p>
-        # <div class=" css-1qn0b6x"><div class="section-heading__09f24__F0gJv css-1qn0b6x"><h5 class="css-agyoef">Specialties</h5></div><p class=" css-11k8aw1">Restaurante familiar especializado en comida mexicana de calidad. Tenemos 10 años de experiencia ofreciendo no solo una comida sabrosa, sino un servicio que lo hace sentir especial. La pasión por lo que hacemos marca una diferencia en nuestros servicios. Nuestras recetas conservan la tradición de nuestros ancestros, por lo que la autenticidad de los sabores mexicanos está impresa en cada plato.</p></div>
-        # <div class=" css-1qn0b6x"><div class="section-heading__09f24__F0gJv css-1qn0b6x"><h5 class="css-agyoef">Meet the Business Owner</h5></div><div class="business-owner-passport__09f24__QTpe6 css-1qn0b6x"><div class=" css-1qn0b6x" aria-labelledby="businessOwner-:r1s:" role="region"><p class=" css-na3oda" id="businessOwner-:r1s:">Business owner information</p><div class="arrange__09f24__LDfbs gutter-1__09f24__yAbCL vertical-align-middle__09f24__zU9sE css-1qn0b6x"><div class="arrange-unit__09f24__rqHTg css-1qn0b6x"><div class="avatar__09f24__bUjfQ css-1qn0b6x"><div class="css-eqfjza"><img class=" css-xlzvdl" src="https://s3-media0.fl.yelpcdn.com/assets/srv0/yelp_styleguide/bf5ff8a79310/assets/img/default_avatars/user_medium_square.png" srcset="" alt="Photo of Allen J." height="40" width="40" loading="lazy" draggable="true"></div></div></div><div class="arrange-unit__09f24__rqHTg arrange-unit-fill__09f24__CUubG css-1qn0b6x"><p class=" css-ux5mu6" data-font-weight="bold">Allen J.</p><div class=" css-1qn0b6x"><p class=" css-chan6m" aria-hidden="true">Business Owner</p></div></div></div></div></div><p class=" css-11k8aw1"><span class=" raw__09f24__T4Ezm">Allen &amp; Anna we were inspired to bring great authentic Mexican flavors to our city.</span></p></div>
-        restaurant_about_element = taco_soup.find()
+                # Check and remove 'closed now' or 'open now'
+                if 'closed now' in i.lower(): # Removes 'closed now' from string
+                    i = i[:-10]  
+                elif 'open now' in i.lower(): # Removes 'open now' from string
+                    i = i[:-8]  
+                if '(next day)' in i.lower():
+                    i = i[:-10]
+                restaurant_times.append((i[:3] + ' ' + i[3:]).strip()) # For readability, a space is added to seperate the day from the times using concatenation and slicing.
         
         #These are print statements used to verify my scraping works:
         # print(f'restaurant_name: {restaurant_name}')
@@ -171,7 +159,7 @@ for i in range(10): # This iterates through taco_link_0.txt through taco_link_9.
         # print(f'restaurant_website: {restaurant_website}')
         # print(f'restaurant_phone: {restaurant_phone}')
         # print(f'restaurant_location: {restaurant_location}')
-        # print(restaurant_hours[1])
+        print(restaurant_times)
             
     except Exception as e:
         print(f"An error occurred while reading html from {taco_html}")

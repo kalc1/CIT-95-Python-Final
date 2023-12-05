@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import os
 import json
+import csv
 
 # First, os.makedirs() is used to create 2 folders/directories. One will house all the raw html data converted to .txt, and the other will contain the outputs. 
 # Since I have to run this a few times for testing, an OSError will be raised if its value is False, so this is set to True. This is because the directory will already exist after the initial running of this code.
@@ -198,13 +199,23 @@ with open('c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\outpu
         except Exception as e:
             print(f"An error occurred while reading html from {taco_html}")
             
-# print(export_data) # Used to visually verify the dictionary works as intended. 
+# Used to visually verify the dictionary works as intended. 
+# print(export_data) 
 
-# This exports the 'export_data' list of dictionaries 
+# This exports 'export_data' into a json file.
 with open('c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\output_files\\output.json', 'w') as json_output:       
-    json.dump(export_data, json_output, indent=2)
+    json.dump(export_data, json_output, indent=2) 
+
+    
+# This exports 'export_data' into a .csv file which can then be exported to excel, a jupiter notebook, sql, etc. 
+with open('c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\output_files\\output.csv', 'w', newline="", encoding="utf-8") as csv_output:
+    field_names = export_data[0].keys() # Creates the field names from the dictionary keys. Only one is needed since they all have the same format.
+    csv_writer = csv.DictWriter(csv_output, fieldnames = field_names)
+    csv_writer.writeheader()
+    csv_writer.writerows(export_data)
 
 # These .close() functions close out the .txt files used in the program.
+json_output.close()
 output.close()      
 links_file.close() 
 links_txt.close()

@@ -68,6 +68,7 @@ for link in read_links:
 #         taco_htmls.write(str(link_soup.prettify()))
 
 with open('c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\output.txt', 'w', encoding='utf-8') as output: 
+    output.write(f'The following data was scraped from the top 10 search results for "tacos" from yelp.\n\n')
     for i in range(10): # This iterates through taco_link_0.txt through taco_link_9.txt
         taco_html = f'c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\yelp_html\\taco_link_{i}.txt'
 
@@ -167,8 +168,8 @@ with open('c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\outpu
             output.write(f'Restaurant Review Count: {restaurant_review_count}\n')
             output.write(f'Restaurant Website: {restaurant_website}\n')
             output.write(f'Restaurant Phone: {restaurant_phone}\n')
-            output.write(f'Restaurant Location: {restaurant_location}\n')
-            output.write(f'Restaurant Times: {restaurant_times}\n')
+            output.write(f'Restaurant Address: {restaurant_location}\n')
+            output.write(f'Restaurant Business Hours: {restaurant_times}\n')
             output.write('\n')
                 
         except Exception as e:
@@ -177,7 +178,7 @@ with open('c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\outpu
         
 
 # These .close() functions close out the .txt files used in the program.
-output.close         
+output.close()      
 links_file.close() 
 html.close()
 links_txt.close()

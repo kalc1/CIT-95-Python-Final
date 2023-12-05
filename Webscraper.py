@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 import os
+import json
 
 # First, os.makedirs() is used to create 2 folders/directories. One will house all the raw html data converted to .txt, and the other will contain the outputs. 
 # Since I have to run this a few times for testing, an OSError will be raised if its value is False, so this is set to True. This is because the directory will already exist after the initial running of this code.
@@ -70,6 +71,9 @@ for link in read_links:
 #     with open(f'c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\yelp_html\\taco_link_{i}.txt', 'w', encoding='utf-8') as taco_htmls:
 #         taco_htmls.write(str(link_soup.prettify()))
 
+# This is an empty list which will be appended with information from the iteration below.
+export_data = []
+# An output.txt file is created and iteration is used to write to it. 
 with open('c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\output_files\\output.txt', 'w', encoding='utf-8') as output: 
     output.write(f'The following data was scraped from the top 10 search results for "tacos" from yelp.\n\n')
     for i in range(10): # This iterates through taco_link_0.txt through taco_link_9.txt
@@ -166,6 +170,7 @@ with open('c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\outpu
             # print(f'restaurant times: {restaurant_times}')
             # print('')
             
+            # These write the information scraped above to a .txt file
             output.write(f'Restaurant Name: {restaurant_name}\n')
             output.write(f'Restaurant Rating: {restaurant_rating}\n')
             output.write(f'Restaurant Review Count: {restaurant_review_count}\n')
@@ -175,12 +180,29 @@ with open('c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\outpu
             output.write(f'Restaurant Business Hours: {restaurant_times}\n')
             output.write('\n')
             
-            html.close() # As each file iterates, it is closed before opening the next one. 
+            # This creates a dictionary of the scraped data, which is then appended to 'export_data' through each iteration. 
+            scraped_data = {
+                                "Restaurant Name": restaurant_name,
+                                "Restaurant Rating": restaurant_rating,
+                                "Restaurant Review Count": restaurant_review_count,
+                                "Restaurant Website": restaurant_website,
+                                "Restaurant Phone": restaurant_phone,
+                                "Restaurant Address": restaurant_location,
+                                "Restaurant Business Hours": restaurant_times
+            }
+            export_data.append(scraped_data) 
+            
+            # As each file iterates, it is closed before opening the next one.               
+            html.close()  
                 
         except Exception as e:
             print(f"An error occurred while reading html from {taco_html}")
-        
-        
+            
+# print(export_data) # Used to visually verify the dictionary works as intended. 
+
+# This exports the 'export_data' list of dictionaries 
+with open('c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\output_files\\output.json', 'w') as json_output:       
+    json.dump(export_data, json_output, indent=2)
 
 # These .close() functions close out the .txt files used in the program.
 output.close()      

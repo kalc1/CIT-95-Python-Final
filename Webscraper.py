@@ -103,7 +103,10 @@ for i in range(10): # This iterates through taco_link_0.txt through taco_link_9.
         # <p class=" css-qyp8bo" data-font-weight="semibold">1329 S Hazelwood Blvd Fresno, CA 93702</p>
         # TODO handle outputs without real address such as {i} = 0 and 9
         restaurant_location_element = taco_soup.find('p', class_="css-qyp8bo")
-        restaurant_location = restaurant_location_element.get_text(strip=True) if restaurant_location_element else 'null'
+        if restaurant_location_element is not None:
+            restaurant_location = restaurant_location_element.get_text(strip=True)
+        else:
+            restaurant_location = 'null'
         
         # <p class="day-of-the-week__09f24__JJea_ css-1p9ibgf" data-font-weight="semibold">Fri</p>
         # <p class="no-wrap__09f24__c3plq css-1p9ibgf" data-font-weight="semibold">7:00 AM - 5:00 PM</p>

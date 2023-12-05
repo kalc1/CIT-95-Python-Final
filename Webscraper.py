@@ -124,18 +124,40 @@ for i in range(10): # This iterates through taco_link_0.txt through taco_link_9.
                 restaurant_phone = restaurant_phone_element.get_text(strip=True)
         else:
             restaurant_phone = 'no data'
-                
+        
+        # Retrieves the address given on the webpage. An HTML snippet is shown for reference:        
         # <p class=" css-qyp8bo" data-font-weight="semibold">1329 S Hazelwood Blvd Fresno, CA 93702</p>
-        # TODO handle outputs without real address such as {i} = 0 and 9
         restaurant_location_element = taco_soup.find('p', class_="css-qyp8bo")
         if restaurant_location_element is not None:
             restaurant_location = restaurant_location_element.get_text(strip=True)
         else:
             restaurant_location = 'no data'
         
-        # <p class="day-of-the-week__09f24__JJea_ css-1p9ibgf" data-font-weight="semibold">Fri</p>
-        # <p class="no-wrap__09f24__c3plq css-1p9ibgf" data-font-weight="semibold">7:00 AM - 5:00 PM</p>
-        restaurant_hours_element = taco_soup.find()
+        # The html blocks where business hours are stored are all <tr class=" css-29kerx">
+        tr_blocks = taco_soup.find_all('tr', class_="css-29kerx")
+        restaurant_hours = []
+        restaurant_times = []
+        
+        for block in tr_blocks: # finds both the day and the hours since they are both in this massive html block
+            # day_element = block.find('p', class_="day-of-the-week__09f24__JJea_")
+            # tr_day = day_element.get_text(strip=True)
+            
+            # hours_element = block.find('p', class_="no-wrap__09f24__c3plq")
+            # tr_hours = hours_element.get_text(strip=True)
+
+            restaurant_hours.append(block.get_text(strip=True))
+            
+        for i in restaurant_hours:
+            if (i != ''):
+                restaurant_times.append(i)
+        print(restaurant_times)
+        
+        # restaurant_days_element = taco_soup.find_all('p', class_="day-of-the-week__09f24__JJea_ css-1p9ibgf")
+        # if restaurant_days_element is not None:   
+        #     restaurant_days = restaurant_days_element.get_text(strip=True)
+        # else:
+        #     restaurant_days = 'no data'
+        # print(restaurant_days_element[0])
         
         # <p class=" css-11k8aw1">Restaurante familiar especializado en comida mexicana de calidad. Tenemos 10 años de experiencia ofreciendo no solo una comida sabrosa, sino un servicio que lo hace sentir especial. La pasión por lo que hacemos marca una diferencia en nuestros servicios. Nuestras recetas conservan la tradición de nuestros ancestros, por lo que la autenticidad de los sabores mexicanos está impresa en cada plato.</p>
         # <div class=" css-1qn0b6x"><div class="section-heading__09f24__F0gJv css-1qn0b6x"><h5 class="css-agyoef">Specialties</h5></div><p class=" css-11k8aw1">Restaurante familiar especializado en comida mexicana de calidad. Tenemos 10 años de experiencia ofreciendo no solo una comida sabrosa, sino un servicio que lo hace sentir especial. La pasión por lo que hacemos marca una diferencia en nuestros servicios. Nuestras recetas conservan la tradición de nuestros ancestros, por lo que la autenticidad de los sabores mexicanos está impresa en cada plato.</p></div>
@@ -147,8 +169,9 @@ for i in range(10): # This iterates through taco_link_0.txt through taco_link_9.
         # print(f'restaurant_rating: {restaurant_rating}')
         # print(f'restaurant_review_count: {restaurant_review_count}')
         # print(f'restaurant_website: {restaurant_website}')
-        print(f'restaurant_phone: {restaurant_phone}')
+        # print(f'restaurant_phone: {restaurant_phone}')
         # print(f'restaurant_location: {restaurant_location}')
+        # print(restaurant_hours[1])
             
     except Exception as e:
         print(f"An error occurred while reading html from {taco_html}")

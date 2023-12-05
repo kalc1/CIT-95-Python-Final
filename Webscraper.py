@@ -141,16 +141,16 @@ for i in range(10): # This iterates through taco_link_0.txt through taco_link_9.
         for block in tr_blocks: # Iterates through each block in tr_blocks to extract the string which contains the business hour information
             restaurant_hours.append(block.get_text(strip=True))
             
-        for i in restaurant_hours: # I remembered a question in the discord chat about removing empty elements in a list
-            if (i != ''):
+        for time in restaurant_hours: # I remembered a question in the discord chat about removing empty elements in a list
+            if (time != ''):
                 # Check and remove 'closed now' or 'open now'
-                if 'closed now' in i.lower(): # Removes 'closed now' from string
-                    i = i[:-10]  
-                elif 'open now' in i.lower(): # Removes 'open now' from string
-                    i = i[:-8]  
-                if '(next day)' in i.lower():
-                    i = i[:-10]
-                restaurant_times.append((i[:3] + ' ' + i[3:]).strip()) # For readability, a space is added to seperate the day from the times using concatenation and slicing.
+                if 'closed now' in time.lower(): # Removes 'closed now' from string
+                    time = time[:-10]  
+                elif 'open now' in time.lower(): # Removes 'open now' from string
+                    time = time[:-8]  
+                if '(next day)' in time.lower():
+                    time = time[:-10]
+                restaurant_times.append((time[:3] + ' ' + time[3:]).strip()) # For readability, a space is added to seperate the day from the times using concatenation and slicing.
         
         #These are print statements used to verify my scraping works:
         # print(f'restaurant_name: {restaurant_name}')
@@ -159,7 +159,7 @@ for i in range(10): # This iterates through taco_link_0.txt through taco_link_9.
         # print(f'restaurant_website: {restaurant_website}')
         # print(f'restaurant_phone: {restaurant_phone}')
         # print(f'restaurant_location: {restaurant_location}')
-        print(restaurant_times)
+        # print(f'restaurant_times: {restaurant_times}')
             
     except Exception as e:
         print(f"An error occurred while reading html from {taco_html}")

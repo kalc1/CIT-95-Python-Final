@@ -133,7 +133,7 @@ for i in range(10): # This iterates through taco_link_0.txt through taco_link_9.
         else:
             restaurant_location = 'no data'
         
-        # The html blocks where business hours are stored are all <tr class=" css-29kerx">
+        # The html blocks where business hours are stored are all within: <tr class=" css-29kerx">
         tr_blocks = taco_soup.find_all('tr', class_="css-29kerx")
         restaurant_hours = []
         restaurant_times = []
@@ -142,13 +142,12 @@ for i in range(10): # This iterates through taco_link_0.txt through taco_link_9.
             restaurant_hours.append(block.get_text(strip=True))
             
         for time in restaurant_hours: # I remembered a question in the discord chat about removing empty elements in a list
-            if (time != ''):
-                # Check and remove 'closed now' or 'open now'
+            if (time != ''): 
                 if 'closed now' in time.lower(): # Removes 'closed now' from string
                     time = time[:-10]  
                 elif 'open now' in time.lower(): # Removes 'open now' from string
                     time = time[:-8]  
-                if '(next day)' in time.lower():
+                if '(next day)' in time.lower():  # Removes '(next day)' from string
                     time = time[:-10]
                 restaurant_times.append((time[:3] + ' ' + time[3:]).strip()) # For readability, a space is added to seperate the day from the times using concatenation and slicing.
         

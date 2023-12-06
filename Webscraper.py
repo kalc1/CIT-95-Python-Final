@@ -3,6 +3,9 @@ import requests
 import os
 import json
 import csv
+import geopandas as gpd
+from shapely.geometry import Point
+from geopy.geocoders import Nominatim
 
 # First, os.makedirs() is used to create 2 folders/directories. One will house all the raw html data converted to .txt, and the other will contain the outputs. 
 # Since I have to run this a few times for testing, an OSError will be raised if its value is False, so this is set to True. This is because the directory will already exist after the initial running of this code.
@@ -212,6 +215,31 @@ with open('c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\outpu
     csv_writer = csv.DictWriter(csv_output, fieldnames = field_names)
     csv_writer.writeheader()
     csv_writer.writerows(export_data)
+
+# This creates an empty list which will store the coordinates of the addresses of the restaurants
+coordinates = []
+
+# A geocoding service that can be used to convert addresses into geographic coordinates (latitude and longitude).
+geolocator = Nominatim(user_agent="geoapiExercises") 
+
+for restaurant in export_data:
+    try:
+        if restaurant['Restaurant Address'] == 'no data':
+            raise ValueError('No address data available.')
+
+        # Get latitude and longitude from the address. If no address is given, prints out a message.
+        location = geolocator.geocode(restaurant['Restaurant Address'])
+        if location is None:
+            raise ValueError(f'Geocoding failed for {restaurant["Restaurant Name"]}')
+
+        lat, lon = location.latitude, location.longitude
+        coordinates.append(Point(lon, lat))
+
+    except (ValueError, IndexError) as e:
+        print(f'Invalid address for: {restaurant["Restaurant Name"]}: {str(e)}')
+        continue
+
+# gdf = gpd.GeoDataFrame(export_data, geometry=coordinates)
 
 # These .close() functions close out the .txt files used in the program.
 csv_output.close()

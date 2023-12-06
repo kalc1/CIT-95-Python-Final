@@ -3,9 +3,6 @@ import requests
 import os
 import json
 import csv
-import geopandas as gpd
-from shapely.geometry import Point
-from geopy.geocoders import Nominatim
 
 # First, os.makedirs() is used to create 2 folders/directories. One will house all the raw html data converted to .txt, and the other will contain the outputs. 
 # Since I have to run this a few times for testing, an OSError will be raised if its value is False, so this is set to True. This is because the directory will already exist after the initial running of this code.

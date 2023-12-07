@@ -12,6 +12,7 @@ os.makedirs('c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\out
 # The following retrieves HTML data from the first page of yelp search results for "Tacos"
 # This section is run only once to retrieve the HTML and saved to a .txt file and 
 # It is commented out to prevent making unnecessary requests to the website:
+
 # url = "https://www.yelp.com/search?find_desc=Tacos&find_loc=Fresno%2C%20CA&sortby=rating&start=0"
 # result = requests.get(url)
 # soup = BeautifulSoup(result.text, 'html.parser')
@@ -66,6 +67,7 @@ for link in read_links:
 # enumerate is used to iterate through each link in links_list and give each .txt file a unique name based on its index number
 # This section is run only once to retrieve all the HTML and saved to 10 different .txt files and 
 # It is commented out to prevent making unnecessary requests to the website:
+
 # for i, link in enumerate(links_list):
 #     link_result = requests.get(link)
 #     link_soup = BeautifulSoup(link_result.text, 'html.parser')
@@ -119,7 +121,7 @@ with open('c:\\Users\\kalco\\Coding Projects\\Python\\CIT-95-Python-Final\\outpu
             
             # Retrieving the phone numbers was tricky because the <p class="css-1p9ibgf"> contains both the website info and the phone number. 
             # A nested if-statement was used to make sure a phone number was being scraped rather than a website.
-            # Websites were within a seperate <a class_="css-1idmmu3"> within the same <div> and <p>
+            # Websites were within a seperate <a class_="css-1idmmu3"> within the same <div> and <p> as shown below: 
             #<div class="css-djo2w"><div class="arrange__09f24__LDfbs gutter-2__09f24__CCmUo vertical-align-middle__09f24__zU9sE css-1qn0b6x">
             # <div class="arrange-unit__09f24__rqHTg arrange-unit-fill__09f24__CUubG css-1qn0b6x">
             # <p class=" css-na3oda">Phone number</p><p class=" css-1p9ibgf" data-font-weight="semibold">(559) 449-3331</p></div>

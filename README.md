@@ -1,2 +1,4 @@
 # CIT-95-Python-Final
-I will be doing a webscraping project for my final program. I will be using beautifulsoup to scrape data, arrange the data in a meaningful/presentable way, then export it into a variety of different formats.  These will include JSON, .csv, .txt, .pdf, and a visualization.
+This Python script is designed to webscrape the first 10 search results from Yelp for "tacos" using BeautifulSoup. The data is cleaned up and exported to various formats such as a .txt file, JSON, and .csv. 
+
+
